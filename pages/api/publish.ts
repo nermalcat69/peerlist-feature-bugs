@@ -28,14 +28,11 @@ export default async (req, res) => {
 
     await redis.zadd(
       databaseName,
-      { nx: true },
-      {
-        score,
-        member: JSON.stringify({
-          ...FEATURE,
-          status: FeatureStatus.Released
-        })
-      }
+      score,
+      JSON.stringify({
+        ...FEATURE,
+        status: FeatureStatus.Released
+      })
     )
 
     res.status(200).json({ body: 'success' })

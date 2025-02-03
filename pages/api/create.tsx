@@ -32,8 +32,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     await redis.zadd(
       databaseName,
-      { nx: true },
-      { score: 0, member: JSON.stringify(newFeature) }
+      0,  // score
+      JSON.stringify(newFeature)  // member
     )
 
     if (process.env.WEBHOOK_URL) {

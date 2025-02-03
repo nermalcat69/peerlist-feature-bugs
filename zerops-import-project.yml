@@ -1,0 +1,18 @@
+#yamlPreprocessor=on
+project:
+  name: voting
+  tags:
+    - voting
+
+services:
+  - hostname: app
+    type: nodejs@20
+    enableSubdomainAccess: true
+    buildFromGit: https://github.com/nermalcat69/peerlist-feature-bugs
+    envSecrets:
+      NEXTAUTH_SECRET: <@generateRandomString(<32>)>
+
+  - hostname: redis
+    type: valkey@7.2
+    mode: NON_HA
+

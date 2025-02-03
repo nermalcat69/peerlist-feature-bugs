@@ -1,12 +1,9 @@
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
-import { UpstashRedisAdapter } from '@next-auth/upstash-redis-adapter'
-import { Redis } from '@upstash/redis'
-
-const redis = Redis.fromEnv()
+import redis from '@/lib/redis'
+import { createClient } from 'ioredis'
 
 export const authOptions = {
-  adapter: UpstashRedisAdapter(redis),
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
