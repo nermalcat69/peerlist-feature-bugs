@@ -11,17 +11,20 @@ export const authOptions = {
     })
   ],
   callbacks: {
-    async session(session) {
-      return {
-        ...session.session,
-        user: {
-          ...session.user,
-          role:
-            process.env.NEXT_PUBLIC_ADMIN_EMAILS.split(',').some(e => e.trim() === session.user.email)
-              ? 'admin'
-              : 'user'
-        }
+    async session({ session, token }) {
+      if (session?.user?.email) {
+        session.user.role = process.env.NEXT_PUBLIC_ADMIN_EMAILS?.split(',')
+          .some(e => e.trim() === session.user.email)
+          ? 'admin'
+          : 'user'
       }
+      return session
+    },
+    async jwt({ token, account, profile }) {
+      if (account) {
+        token.accessToken = account.access_token
+      }
+      return token
     }
   }
 }

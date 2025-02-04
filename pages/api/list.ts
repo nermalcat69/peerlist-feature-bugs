@@ -8,9 +8,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     let result = []
 
     for (let i = 0; i < data.length - 1; i += 2) {
-      let item = data[i]
-      item['score'] = parseFloat(data[i + 1])
-      result.push(item)
+      try {
+        const item = JSON.parse(data[i])
+        item.score = parseFloat(data[i + 1])
+        result.push(item)
+      } catch (e) {
+        console.error('Failed to parse item:', data[i])
+      }
     }
 
     res.status(200).json(result)

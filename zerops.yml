@@ -14,6 +14,8 @@ zerops:
         REDIS_PORT: 6379
         GITHUB_ID: Ov23li1gUNmVH8hZ6lrE
         GITHUB_SECRET: 9af7dbd57553ad15f4e6c930cfdd77468b5075d1
+        NEXTAUTH_URL: ${zeropsSubdomain}
+        NEXT_PUBLIC_ADMIN_EMAILS: meow@nermalcat69.dev
       ports:
         - port: 3000
           httpSupport: true
